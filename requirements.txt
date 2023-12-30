@@ -1,0 +1,7 @@
+langchain
+openai
+google-search-results
+pinecone-client
+tiktoken
+langchainhub
+langchain-experimental
