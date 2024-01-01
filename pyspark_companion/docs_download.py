@@ -2,7 +2,7 @@ import scrapy
 
 
 class PySparkDocsSpider(scrapy.Spider):
-    name = "pyspark_docs"
+    name = "docs_download"
     start_urls = [
         "https://spark.apache.org/docs/latest/api/python/index.html",
         "https://spark.apache.org/docs/latest/api/python/getting_started/index.html",
