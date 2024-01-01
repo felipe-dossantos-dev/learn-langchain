@@ -3,7 +3,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from agents.linkedin_lookup_agent import lookup as linkedin_lookup
 from third_parties.linkedin import scrape_linkedin_profile
-from ice_breaker.output_parsers import *
+from ice_breaker.output_parsers import ice_breaker_parser
 
 if __name__ == "__main__":
     linkedin_profile_url = linkedin_lookup("Felipe Garcia dos Santos")

@@ -5,3 +5,7 @@ pinecone-client
 tiktoken
 langchainhub
 langchain-experimental
+spider
+jq
+chroma
+sentence-transformers
