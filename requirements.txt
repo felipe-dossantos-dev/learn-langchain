@@ -12,3 +12,4 @@ sentence-transformers
 rich
 streamlit_chat
 streamlit
+html2text
