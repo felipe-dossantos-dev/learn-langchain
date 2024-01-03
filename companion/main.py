@@ -1,6 +1,6 @@
 from typing import Set
 
-from backend import run_llm
+from backend import run_qa
 import streamlit as st
 from streamlit_chat import message
 from dotenv import load_dotenv
@@ -41,7 +41,7 @@ submitted = st.button(
 
 if submitted and len(prompt) > 0:
     with st.spinner("Generating response..."):
-        generated_response = run_llm(
+        generated_response = run_qa(
             query=prompt,
             filter=options,
         )
