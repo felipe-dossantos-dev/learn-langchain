@@ -184,7 +184,12 @@ def run_pydantic_create_examples(pydantic_models: str, comments: str = ""):
     )
 
 def run_create_processor(comments: str = ""):
-    # eu sou exatamente o que meu pai fazia comigo, jogava na tv e dava comida processada
+    # teria que pegar o codigo atual e jogar aqui dentro...
+    # pegar o codigo da base class
+    # pegar um ou dois exemplos
+    # pegar um ou dois exemplos de testes
+    # pegar o arquivos dos models inteiro
+    # 32k tokens max
     llm = ChatOpenAI(verbose=True, temperature=0, model="gpt-4")
     chain = LLMChain(llm=llm, prompt=PROCESSOR_PROMPT)
     return chain.run(

@@ -1,11 +1,14 @@
+import streamlit as st
 from typing import Set
 
-from backend import run_qa
-import streamlit as st
+from backend import run_pydantic_json_convert
 from streamlit_chat import message
 from dotenv import load_dotenv
 
 load_dotenv()
+
+st.title("json-2-pydantic")
+st.sidebar.title("json-2-pydantic")
 
 
 def create_sources_string(source_urls: Set[str]) -> str:
@@ -19,8 +22,6 @@ def create_sources_string(source_urls: Set[str]) -> str:
     return sources_string
 
 
-st.title("LangChain🦜🔗 Chat Companion")
-st.sidebar.title("LangChain🦜🔗 Chat Companion")
 if (
     "chat_answers_history" not in st.session_state
     and "user_prompt_history" not in st.session_state
@@ -30,21 +31,14 @@ if (
     st.session_state["user_prompt_history"] = []
     st.session_state["chat_history"] = []
 
-options = st.multiselect(
-    "What are the docs to retrieve from?",
-    ["pyspark", "pydantic"],
-)
+json_obj = st.text_input("Json", placeholder="Enter your json here...")
+comments = st.text_input("Comments", placeholder="Enter your comment here...")
+submitted = st.button("Submit")
 
-prompt = st.text_input("Prompt", placeholder="Enter your message here...") 
-submitted = st.button(
-    "Submit"
-)
-
-if submitted and len(prompt) > 0:
+if submitted and len(json_obj) > 0:
     with st.spinner("Generating response..."):
-        generated_response = run_qa(
-            query=prompt,
-            filter=options,
+        generated_response = run_pydantic_json_convert(
+            json_obj=json_obj, comments=comments
         )
 
         sources = set(
@@ -54,8 +48,10 @@ if submitted and len(prompt) > 0:
             f"{generated_response['result']} \n\n {create_sources_string(sources)}"
         )
 
-        st.session_state.chat_history.insert(0, (prompt, generated_response["result"]))
-        st.session_state.user_prompt_history.insert(0, prompt)
+        st.session_state.chat_history.insert(
+            0, (json_obj, generated_response["result"])
+        )
+        st.session_state.user_prompt_history.insert(0, json_obj)
         st.session_state.chat_answers_history.insert(0, formatted_response)
 
 if st.session_state["chat_answers_history"]:
