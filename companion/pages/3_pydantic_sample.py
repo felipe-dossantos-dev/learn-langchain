@@ -1,14 +1,14 @@
 import streamlit as st
-from typing import Set
 
-from backend import run_create_processor
+from backend import run_pydantic_create_examples
 from streamlit_chat import message
 from dotenv import load_dotenv
 
 load_dotenv()
 
-st.title("Processors Generator Page 🎉")
-st.sidebar.title("Processor Generator Page 🎉")
+st.title("pydantic sample")
+st.sidebar.title("pydantic sample")
+
 
 if (
     "chat_answers_history" not in st.session_state
@@ -19,12 +19,14 @@ if (
     st.session_state["user_prompt_history"] = []
     st.session_state["chat_history"] = []
 
+code = st.text_input("Code", placeholder="Enter your pydantic models here...")
 comments = st.text_input("Comments", placeholder="Enter your comment here...")
 submitted = st.button("Submit")
 
-if submitted and len(comments) > 0:
+if submitted and len(code) > 0:
     with st.spinner("Generating response..."):
-        generated_response = run_create_processor(
+        generated_response = run_pydantic_create_examples(
+            pydantic_models=code,
             comments=comments,
         )
 
